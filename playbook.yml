@@ -44,7 +44,7 @@
     - name: APC | Cache configuration file, apc.ini
       template:
         src=templates/etc-php5-conf-d-apc-ini.j2
-        dest=/etc/php5/conf.d/apc.ini
+        dest=/etc/php5/apache2/conf.d/apc.ini
 
     ##
     # MySQL database setup.
@@ -89,12 +89,12 @@
     - name: Apache | Configuration file for our site
       template:
         src=templates/etc-apache2-sites-available-devserver.j2
-        dest=/etc/apache2/sites-available/devserver
+        dest=/etc/apache2/sites-available/devserver.conf
       notify:
         - restart apache
 
     - name: Apache | Disable the default site
-      command: a2dissite default
+      command: a2dissite 000-default
 
     - name: Apache | Enable our new site
       command: a2ensite devserver

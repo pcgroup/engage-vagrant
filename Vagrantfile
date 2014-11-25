@@ -32,7 +32,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # Config the VM
-  config.vm.box = "hashicorp/precise64"
+  config.vm.box = "ubuntu/trusty64"
   config.vm.hostname = vars['server_hostname']
 
   # Sets IP of the guest machine and allows it to connect to the internet.
