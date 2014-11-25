@@ -47,13 +47,26 @@ Setup
 5. Copy the database from another server. It is faster and more reliable to do this from within the vagrant box.
 
   Also, I find it more reliable to sql-dump then sqlc.
-  
-  Then, use `drush @engage upgradepath` to update your site using the current codebase.
 
   ````
   vagrant ssh
   drush @engageny2.prod sql-dump > prod.sql
   drush @engage sqlc < prod.sql
   ````
+  After syncing from production, you usually need to rebuild the registry:
   
+  ```
+  drush @engage rr
+  ```
+  
+  Then, use `drush @engage upgradepath` to run all the things needed to rebuild the site.
+  The command includes reverting all features, clearing all caches, and running all updates.
+  
+  It can take a long time the first time you sync from production if there are a lot of updates to do.
+
+6. Visit http://local.engageny.org.
+
+NOTES
+-----
+
 Drush aliases are created both on your host machine and inside the vagrant box called @engage.
