@@ -139,7 +139,7 @@
       template:
         src=templates/settings-php.j2
         dest=/var/www/sites/{{ server_hostname }}/settings.php
-        mode=g+r
+        mode=644
 
     - name: Drupal | Create files folder
       file:
