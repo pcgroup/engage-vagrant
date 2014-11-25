@@ -8,7 +8,7 @@
 #
 
 ---
-project: engage
+project: engageny2
 project_repo: git@github.com:pcgroup/engageny2.git
 install_profile: engage2
 server_hostname: local.engageny.org
