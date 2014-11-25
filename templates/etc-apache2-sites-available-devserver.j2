@@ -11,8 +11,7 @@
 	<Directory /var/www>
 		Options Indexes FollowSymLinks MultiViews
 		AllowOverride All
-		Order allow,deny
-		allow from all
+		Require all granted
 	</Directory>
 
 </VirtualHost>
@@ -27,8 +26,7 @@
 		<Directory /var/www>
 			Options Indexes FollowSymLinks MultiViews
 			AllowOverride All
-			Order allow,deny
-			allow from all
+            Require all granted
 		</Directory>
 
 		# Enable local HTTPS
