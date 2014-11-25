@@ -65,6 +65,7 @@ Setup
   It can take a long time the first time you sync from production if there are a lot of updates to do.
 
 6. Visit http://local.engageny.org.
+7. You can edit the files directly in `./src` (from your host machine) and they will be instantly reflected in the VM.
 
 NOTES
 -----
