@@ -14,6 +14,7 @@ vansible_memory: '2048'
 server_hostname: 'localhost'
 
 path_to_drush_aliases: 'sites/all/drush'
+path_to_solr_conf: 'sites/all/modules/contrib/search_api_solr/solr-conf/3.x'
 
 packages:
   - php5

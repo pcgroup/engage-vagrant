@@ -13,6 +13,8 @@ project_repo: git@github.com:pcgroup/engageny2.git
 install_profile: engage2
 server_hostname: local.engageny.org
 
+path_to_solr_conf: 'sites/all/modules/contrib/search_api_solr/solr-conf/3.x'
+
 # If your project is from Acquia, path_to_drupal would be "docroot"
 path_to_drupal: docroot
 
