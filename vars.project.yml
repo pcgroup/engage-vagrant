@@ -9,7 +9,7 @@
 
 ---
 project: engage
-project_repo: git@github.com:pcgroup/engageny2.git
+project_repo: engageny2@svn-3224.prod.hosting.acquia.com:engageny2.git
 install_profile: engage2
 server_hostname: local.engageny.org
 
