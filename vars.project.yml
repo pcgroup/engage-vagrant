@@ -11,7 +11,7 @@
 project: engage
 project_repo: git@github.com:pcgroup/engageny2.git
 install_profile: engage2
-server_hostname: engage
+server_hostname: local.engageny.org
 
 # If your project is from Acquia, path_to_drupal would be "docroot"
 path_to_drupal: docroot
