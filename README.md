@@ -13,6 +13,14 @@ Setup
   See http://vagrant-up.com/downloads and https://www.virtualbox.org/wiki/Downloads for binary installers.
   See https://github.com/drush-ops/drush for info on installing drush on your system.
 
+2. Highly suggested: 
+
+  Install vagrant-faster plugin.  This module will automatically scale up your vagrant box based on your host machine.
+  
+  ```
+  vagrant plugin install vagrant-faster
+  ```
+
 2. Clone this repo if you haven't already.
   ````
   git clone git@github.com:pcgroup/engage-vagrant.git engageny
