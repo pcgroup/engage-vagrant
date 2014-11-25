@@ -164,9 +164,11 @@
         src=templates/drushrc-php.j2
         dest=/home/vagrant/.drush/drushrc.php
 
+    - name: Solr | Backup Solr config files.
+      shell: cp -rf /etc/solr/conf /etc/solr/conf.bak
+
     - name: Solr | Setup Solr config files.
-      command:
-        cp -rf /var/www/{{ path_to_solr_conf }}/* /etc/solr/conf
+      shell: cp -rf /var/www/{{ path_to_solr_conf }}/* /etc/solr/conf
       notify:
         - restart tomcat
 
