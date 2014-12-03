@@ -5,6 +5,9 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
+  # Check if this is Windows
+  is_windows = (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/)
+ 
   # Look for project variables file.
   if !(File.exists?(File.dirname(__FILE__) + "/vars.project.yml"))
     raise NoVarsException
@@ -41,9 +44,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Read this user's host machine's public ssh key to pass to ansible.
   if !(File.exists?("#{Dir.home}/.ssh/id_rsa.pub"))
-     raise NoSshKeyException
+    if !(File.exists?("#{Dir.home}/.ssh/id_dsa.pub"))
+      raise NoSshKeyException
+    end
   end
-  ssh_public_key = IO.read("#{Dir.home}/.ssh/id_rsa.pub").strip!
+  if !(File.exists?("#{Dir.home}/.ssh/id_rsa.pub"))
+    ssh_public_key = IO.read("#{Dir.home}/.ssh/id_dsa.pub").strip!
+  else
+    ssh_public_key = IO.read("#{Dir.home}/.ssh/id_rsa.pub").strip!
+  end
 
   # If ansible is installed on the host, we can use config.vm.provision.
   # If it is not, we use shell provisioner to run
@@ -73,8 +82,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # Sync project folder to guest machine.
-  config.vm.synced_folder "src/#{vars['path_to_drupal']}", "/var/www",
-    owner: "www-data", group: "www-data"
+  if not is_windows
+    config.vm.synced_folder "src/#{vars['path_to_drupal']}", "/var/www",
+      :nfs => true
+  else
+    config.vm.synced_folder "src/#{vars['path_to_drupal']}", "/var/www",
+      owner: "www-data", group: "www-data"
+  end
 
   # Save a local alias for this project.
   if (!File.exists?("#{Dir.home}/.drush"))
@@ -116,7 +130,7 @@ class NoSrcException < Vagrant::Errors::VagrantError
 end
 
 class NoSshKeyException < Vagrant::Errors::VagrantError
-  error_message('An ssh public key could not be found at ~/.ssh/id_rsa.pub. Please generate one and try again.')
+  error_message('An ssh public key could not be found at ~/.ssh/id_rsa.pub or ~/.ssh/id_dsa.pub . Please generate one and try again.')
 end
 
 class NoSSHException < Vagrant::Errors::VagrantError
