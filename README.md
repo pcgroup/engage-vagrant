@@ -13,12 +13,25 @@ Setup
   See http://vagrant-up.com/downloads and https://www.virtualbox.org/wiki/Downloads for binary installers.
   See https://github.com/drush-ops/drush for info on installing drush on your system.
 
-2. Highly suggested: 
+2. Highly suggested:
 
   Install vagrant-faster plugin.  This module will automatically scale up your vagrant box based on your host machine.
-  
+
   ```
   vagrant plugin install vagrant-faster
+  ```
+
+  If you're on Mac OS X, you probably want to install homebrew (http://brew.sh/) because it makes installing ansible easy, and because it is awesome anyway.
+
+  ```
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  ```
+
+  Then you can install ansible easily.
+
+  ```
+  brew update
+  brew install ansible
   ```
 
 2. Clone this repo if you haven't already.
@@ -34,9 +47,9 @@ Setup
 
   Vagrant will automatically clone the project repo to ./src on first up.
 
-4.  Add this line to your hosts file to allow local.engageny.org to point to 127.0.0.1
+4.  Add this line to your hosts file to allow local.engageny.org to point to 1.2.3.4
 
-  This Vagrantfile uses port forwarding so the VM is accessible from localhost/127.0.0.1
+  This Vagrantfile uses a local private network using the 1.2.3.4 IP address.
 
   ````
   # MacOS/Linux: /etc/hosts
@@ -54,15 +67,22 @@ Setup
   drush @engage sqlc < prod.sql
   ````
   After syncing from production, you usually need to rebuild the registry:
-  
+
   ```
   drush @engage rr
   ```
-  
+
   Then, use `drush @engage upgradepath` to run all the things needed to rebuild the site.
   The command includes reverting all features, clearing all caches, and running all updates.
-  
+
   It can take a long time the first time you sync from production if there are a lot of updates to do.
+
+  You should also rebuild the search indexes to make sure they are up-to-date with the database you have loaded.
+
+  ```
+  drush @engage sapi-r
+  drush @engage sapi-i
+  ```
 
 6. Visit http://local.engageny.org.
 7. You can edit the files directly in `./src` (from your host machine) and they will be instantly reflected in the VM.
