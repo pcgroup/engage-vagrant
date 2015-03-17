@@ -11,7 +11,7 @@
 project: engage
 project_repo: engageny2@svn-3224.prod.hosting.acquia.com:engageny2.git
 install_profile: engage2
-server_hostname: local.engageny.org
+server_hostname: local.engage
 
 path_to_solr_conf: 'sites/all/modules/contrib/search_api_solr/solr-conf/3.x'
 
