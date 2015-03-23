@@ -23,6 +23,8 @@ packages:
   - mysql-client
   - php5-mysql
   - php-apc
+  - php5-mcrypt
+  - php5-oauth
   - php5-xmlrpc
   - php5-curl
   - php5-gd
