@@ -6,9 +6,9 @@
 	ServerAdmin {{ apache_server_admin }}
 	ServerAlias {{ apache_server_alias }}
 
-	DocumentRoot /var/www
+	DocumentRoot /var/www/{{ project }}
 
-	<Directory /var/www>
+	<Directory /var/www/{{ project }}>
 		Options Indexes FollowSymLinks MultiViews
 		AllowOverride All
 		Require all granted
@@ -21,9 +21,9 @@
 		ServerAdmin {{ apache_server_admin }}
 		ServerAlias {{ apache_server_alias }}
 	
-		DocumentRoot /var/www
+		DocumentRoot /var/www/{{ project }}
 	
-		<Directory /var/www>
+		<Directory /var/www/{{ project }}>
 			Options Indexes FollowSymLinks MultiViews
 			AllowOverride All
             Require all granted

@@ -83,10 +83,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Sync project folder to guest machine.
   if not is_windows
-    config.vm.synced_folder "src/#{vars['path_to_drupal']}", "/var/www",
+    config.vm.synced_folder "src/#{vars['path_to_drupal']}", "/var/www/#{vars['project']}",
       :nfs => true
   else
-    config.vm.synced_folder "src/#{vars['path_to_drupal']}", "/var/www",
+    config.vm.synced_folder "src/#{vars['path_to_drupal']}", "/var/www/#{vars['project']}",
       owner: "www-data", group: "www-data"
   end
 
@@ -100,14 +100,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # @TODO: Is is possible to load this from the ansible template?
     drush_alias = "
   <?php
-  $aliases['#{vars['project']}'] = array(
+  $aliases['#{vars['project']}.vagrant'] = array(
     'uri' => '#{vars['server_hostname']}',
-    'root' => '/var/www',
+    'root' => '/var/www/#{vars['project']}',
     'remote-host' => '#{vars['server_hostname']}',
     'remote-user' => 'vagrant',
   );
     "
-    if (File.write("#{Dir.home}/.drush/#{vars['project']}.alias.drushrc.php", drush_alias))
+    if (File.write("#{Dir.home}/.drush/#{vars['project']}.vagrant.alias.drushrc.php", drush_alias))
       # @TODO: Replace with Vagrant::UI::Basic once we know how to use it :(
       puts "Drush alias created. You may access your site with `drush @#{vars['project']}`"
     end

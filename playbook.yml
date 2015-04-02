@@ -132,18 +132,18 @@
 
     - name: Drupal | Configuration folder, sites/{{ server_hostname }}
       file:
-        path=/var/www/sites/{{ server_hostname }}
+        path=/var/www/{{ project }}/sites/{{ server_hostname }}
         state=directory
 
     - name: Drupal | Configuration file, settings.php
       template:
         src=templates/settings-php.j2
-        dest=/var/www/sites/{{ server_hostname }}/settings.php
+        dest=/var/www/{{ project }}/sites/{{ server_hostname }}/settings.php
         mode=644
 
     - name: Drupal | Create files folder
       file:
-        path=/var/www/sites/default/files
+        path=/var/www/{{ project }}/sites/default/files
         state=directory
 
     - name: Drush | Create .drush folder
@@ -168,7 +168,7 @@
       shell: cp -rf /etc/solr/conf /etc/solr/conf.bak
 
     - name: Solr | Setup Solr config files.
-      shell: cp -rf /var/www/{{ path_to_solr_conf }}/* /etc/solr/conf
+      shell: cp -rf /var/www/{{ project }}/{{ path_to_solr_conf }}/* /etc/solr/conf
       notify:
         - restart tomcat
 
