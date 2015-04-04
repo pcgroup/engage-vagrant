@@ -95,7 +95,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     Dir.mkdir("#{Dir.home}/.drush")
   end
 
-  DRUSH_ALIAS_FILE = "#{Dir.home}/.drush/#{vars['project']}.alias.drushrc.php"
+  DRUSH_ALIAS_FILE = "#{Dir.home}/.drush/#{vars['project']}.vagrant.alias.drushrc.php"
   if (!File.exists?(DRUSH_ALIAS_FILE))
     # @TODO: Is is possible to load this from the ansible template?
     drush_alias = "
