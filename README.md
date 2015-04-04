@@ -47,14 +47,14 @@ Setup
 
   Vagrant will automatically clone the project repo to ./src on first up.
 
-4.  Add this line to your hosts file to allow local.engageny.org to point to 1.2.3.4
+4.  Add this line to your hosts file to allow local.engage to point to 1.2.3.4
 
   This Vagrantfile uses a local private network using the 1.2.3.4 IP address.
 
   ````
   # MacOS/Linux: /etc/hosts
   # Windows: C:\Windows\System32\drivers\etc\hosts
-  1.2.3.4       local.engageny.org
+  1.2.3.4       local.engage
   ````
 
 5. Copy the database from another server. It is faster and more reliable to do this from within the vagrant box.
@@ -91,7 +91,7 @@ Setup
   drush @engage sapi-i
   ```
 
-6. Visit http://local.engageny.org.
+6. Visit http://local.engage
 7. You can edit the files directly in `./src` (from your host machine) and they will be instantly reflected in the VM.
 
 NOTES
