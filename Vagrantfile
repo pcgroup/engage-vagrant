@@ -54,16 +54,31 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ssh_public_key = IO.read("#{Dir.home}/.ssh/id_rsa.pub").strip!
   end
 
-  # Run ansible in the guest, required for Windows
-  config.vm.provision "shell", path: File.dirname(__FILE__) + "/tasks/setup-ansible.sh"
+  # If ansible is installed on the host, we can use config.vm.provision.
+  # If it is not, we use shell provisioner to run
+  # See https://github.com/mitchellh/vagrant/issues/2103
+  has_ansible = `which ansible`.to_s.strip.length != 0
+  if has_ansible
+    config.vm.provision "ansible" do |ansible|
+      ansible.playbook = vars['vansible_playbook']
+      ansible.extra_vars = {
+        ansible_ssh_user: 'vagrant',
+        authorized_keys: ssh_public_key
+      }
+      ansible.sudo = true
+    end
+  else
+    # If local ansible is not found, install it in the guest and run the playbook there.
+    config.vm.provision "shell", path: File.dirname(__FILE__) + "/tasks/setup-ansible.sh"
 
-  # Run ansible Provisioner via shell.
-  config.vm.provision "shell",
-    inline: "cd /vagrant; ansible-playbook -c local  -i 'default,' #{vars['vansible_playbook']} --extra-vars 'authorized_keys=\"#{ssh_public_key}\"'"
+    # Run ansible Provisioner via shell.
+    config.vm.provision "shell",
+      inline: "cd /vagrant; ansible-playbook -c local  -i 'default,' #{vars['vansible_playbook']} --extra-vars 'authorized_keys=\"#{ssh_public_key}\"'"
+
+  end
 
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--memory", vars['vansible_memory']]
-    vb.gui = true
   end
 
   # Sync project folder to guest machine.

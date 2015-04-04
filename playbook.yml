@@ -141,12 +141,8 @@
     - name: Drupal | Configuration file, settings.php
       template:
         src=templates/settings-php.j2
-        dest=/tmp/settings.php
+        dest=/var/www/{{ project }}/sites/{{ server_hostname }}/settings.php
         mode=644
-    
-    - name: Drupal | move settings file to the sites/default directory
-      command:
-        mv /tmp/settings.php /var/www/engage/sites/local.engage/settings.php
 
     - name: Drupal | Create files folder
       file:
