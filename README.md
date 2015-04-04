@@ -70,16 +70,16 @@ Setup
   ````
   vagrant ssh
   drush @engageny2.prod sql-dump > prod.sql
-  drush @engage sqlc < prod.sql
+  drush @engage.vagrant sqlc < prod.sql
   ````
 
   After syncing from production, you usually need to rebuild the registry:
 
   ```
-  drush @engage rr
+  drush @engage.vagrant rr
   ```
 
-  Then, use `drush @engage upgradepath` to run all the things needed to rebuild the site.
+  Then, use `drush @engage.vagrant upgradepath` to run all the things needed to rebuild the site.
   The command includes reverting all features, clearing all caches, and running all updates.
 
   It can take a long time the first time you sync from production if there are a lot of updates to do.
@@ -87,8 +87,8 @@ Setup
   You should also rebuild the search indexes to make sure they are up-to-date with the database you have loaded.
 
   ```
-  drush @engage sapi-r
-  drush @engage sapi-i
+  drush @engage.vagrant sapi-r
+  drush @engage.vagrant sapi-i
   ```
 
 6. Visit http://local.engage
@@ -97,7 +97,7 @@ Setup
 NOTES
 -----
 
-Drush aliases are created both on your host machine and inside the vagrant box called @engage.
+Drush aliases are created both on your host machine and inside the vagrant box called @engage.vagrant.
 
 By default, if you are on Linux/Mac OS X, the Vagrantfile will default you to NFS sharing as it is *much* faster than the default Virtualbox sharing.
 On Windows, It will still use the default Virtualbox sharing. If you find this too slow, you can set up rsync on your machine by installing it through MSYS or Cygwin, and then change the lines
