@@ -46,6 +46,9 @@
         src=templates/etc-php5-conf-d-apc-ini.j2
         dest=/etc/php5/apache2/conf.d/apc.ini
 
+    - name: PHP | Enable required modules
+      command: php5enmod mcrypt
+
     ##
     # MySQL database setup.
     #
@@ -156,7 +159,7 @@
     - name: Drush | Create site alias on guest.
       template:
         src=templates/drush-alias-drushrc-php.j2
-        dest=/home/vagrant/.drush/{{ project }}.alias.drushrc.php
+        dest=/home/vagrant/.drush/{{ project }}.vagrant.alias.drushrc.php
 
 
     - name: Drush | Create drushrc file on guest.
