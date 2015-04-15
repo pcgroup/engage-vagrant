@@ -46,6 +46,11 @@
         src=templates/etc-php5-conf-d-apc-ini.j2
         dest=/etc/php5/apache2/conf.d/apc.ini
 
+    - name: XDebug | Configuration file, 20-xdebug.ini
+      template:
+        src=templates/etc-php5-apache2-conf.d-20-xdebug.ini.j2
+        dest=/etc/php5/apache2/conf.d/20-xdebug.ini
+
     ##
     # MySQL database setup.
     #
