@@ -155,7 +155,7 @@
 
     - name: Drush | Create site alias on guest.
       template:
-        src=templates/drush-alias-drushrc-php.j2
+        src=templates/drush-aliases-drushrc-php.j2
         dest=/home/vagrant/.drush/{{ project }}.alias.drushrc.php
 
 

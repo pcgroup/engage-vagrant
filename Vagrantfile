@@ -7,7 +7,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Check if this is Windows
   is_windows = (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/)
- 
+
   # Look for project variables file.
   if !(File.exists?(File.dirname(__FILE__) + "/vars.project.yml"))
     raise NoVarsException
@@ -95,12 +95,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     Dir.mkdir("#{Dir.home}/.drush")
   end
 
-  DRUSH_ALIAS_FILE = "#{Dir.home}/.drush/#{vars['project']}.alias.drushrc.php"
+  DRUSH_ALIAS_FILE = "#{Dir.home}/.drush/#{vars['project']}.aliases.drushrc.php"
   if (!File.exists?(DRUSH_ALIAS_FILE))
     # @TODO: Is is possible to load this from the ansible template?
     drush_alias = "
   <?php
-  $aliases['#{vars['project']}.vagrant'] = array(
+  $aliases['local'] = array(
+    'parent' => '@parent',
+    'site' => '#{vars['project']}',
+    'env' => 'local',
     'uri' => '#{vars['server_hostname']}',
     'root' => '/var/www/#{vars['project']}',
     'remote-host' => '#{vars['server_hostname']}',

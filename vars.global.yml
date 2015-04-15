@@ -1,4 +1,4 @@
-# Settings that are applied to the templates and used in scripts. 
+# Settings that are applied to the templates and used in scripts.
 
 
 
@@ -28,6 +28,7 @@ packages:
   - php5-xmlrpc
   - php5-curl
   - php5-gd
+  - php5-xdebug
   - sendmail
   - unzip
   - python-mysqldb
